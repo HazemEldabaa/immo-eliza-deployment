@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 #Define the URL of the FastAPI endpoint
-FASTAPI_URL = 'https://immo-eliza-deployment.onrender.com/predict'  # Update with your FastAPI endpoint URL
+FASTAPI_URL = 'https://immo-eliza-deployment-15s3.onrender.com/predict'  # Update with your FastAPI endpoint URL
 
 #Streamlit App Title
 st.title('Price Prediction Web App')

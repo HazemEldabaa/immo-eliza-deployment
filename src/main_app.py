@@ -5,6 +5,7 @@ import uvicorn
 
 from predict import predict
 from typing import Union
+
 app = FastAPI()
 
 class Item(BaseModel):

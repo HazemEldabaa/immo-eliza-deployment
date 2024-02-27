@@ -10,7 +10,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import csv
 import uvicorn
-
+from main_app import app
 from predict import predict
 from typing import Union
 
@@ -49,11 +49,11 @@ async def root():
 async def create_item(item: Item):
     with open("csv_file.csv", 'w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(item.model_dump().keys())
-        writer.writerow(item.model_dump().values())
-
+        writer.writerow(item.__dict__().keys())
+        writer.writerow(item.__dict__().values())
+    print("hi")
     return await predict("csv_file.csv")
 
 if __name__ == "__main__":
-    uvicorn.run(app, port=8000, host="0.0.0.0")
+    uvicorn.run("main_app:app", port=8000, host="0.0.0.0", reload=True)
 
