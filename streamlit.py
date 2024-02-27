@@ -20,9 +20,8 @@ fl_terrace = st.selectbox('Terrace ?:',  [0, 1])
 fl_garden = st.selectbox('Garden ?:',  [0, 1])
 fl_swimming_pool = st.selectbox('Swimming pool ?:',  [0, 1])
 property_type=st.selectbox("Pick property type",['House','appartement'])
-st.header('Select Location on Map')
-initial_center = (50.8503, 4.3517) 
-latitude, longitude = st.map()
+longitude = st.slider("Longitude", min_value=5.479947, max_value=6.385048, step=0.000001)
+latitude = st.slider("Latitude", min_value=48.824985, max_value=50.351432, step=0.000001)
 
 region=st.selectbox("Pick region",["Flanders","Wallonia","Brussels-Capital"])
 province = st.selectbox('Province', [
@@ -158,28 +157,27 @@ locality = st.selectbox('Locality:', [
 if st.button('Predict Price'):
     # Prepare input data as JSON
     input_data = {
-    "nbr_frontages": nbr_frontages,
-    "equipped_kitchen": equipped_kitchen,
-    "nbr_bedrooms": nbr_bedrooms,
-    "latitude": latitude,
-    "longitude": longitude,
-    "total_area_sqm": total_area_sqm,
-    "surface_land_sqm": surface_land_sqm,
-    "terrace_sqm": terrace_sqm,
-    "garden_sqm": garden_sqm,
-    "province": province,
-    "heating_type": heating_type,
-    "state_building": state_building,
-    "property_type": property_type,
-    "epc": epc,
-    "locality": locality,
-    "subproperty_type": subproperty_type,
-    "region": region,
-    "fl_terrace": fl_terrace,
-    "fl_garden": fl_garden,
-    "fl_swimming_pool": fl_swimming_pool
-    }   
-
+    "nbr_frontages": "nbr_frontages",
+    "equipped_kitchen": "equipped_kitchen",
+    "nbr_bedrooms": "nbr_bedrooms",
+    "latitude": "latitude",
+    "longitude": "longitude",
+    "total_area_sqm": "total_area_sqm",
+    "surface_land_sqm": "surface_land_sqm",
+    "terrace_sqm": "terrace_sqm",
+    "garden_sqm": "garden_sqm",
+    "province": "province",
+    "heating_type": "heating_type",
+    "state_building": "state_building",
+    "property_type": "property_type",
+    "epc": "epc",
+    "locality": "locality",
+    "subproperty_type": "subproperty_type",
+    "region": "region",
+    "fl_terrace": "fl_terrace",
+    "fl_garden": "fl_garden",
+    "fl_swimming_pool": "fl_swimming_pool"
+    }
 
 
 
