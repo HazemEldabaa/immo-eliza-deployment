@@ -1,4 +1,5 @@
-
+import sys
+sys.path.append('/immo-eliza-deployment/')
 from fastapi import FastAPI
 from pydantic import BaseModel
 import csv
