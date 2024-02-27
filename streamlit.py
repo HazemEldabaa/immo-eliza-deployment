@@ -20,8 +20,8 @@ fl_terrace = st.selectbox('Terrace ?:',  [0, 1])
 fl_garden = st.selectbox('Garden ?:',  [0, 1])
 fl_swimming_pool = st.selectbox('Swimming pool ?:',  [0, 1])
 property_type=st.selectbox("Pick property type",['House','appartement'])
-longitude = st.slider("Longitude", min_value=5.479947, max_value=6.385048, step=0.000001)
-latitude = st.slider("Latitude", min_value=48.824985, max_value=50.351432, step=0.000001)
+st.header('Select Location on Map')
+latitude, longitude = st.map()
 
 region=st.selectbox("Pick region",["Flanders","Wallonia","Brussels-Capital"])
 province = st.selectbox('Province', [
