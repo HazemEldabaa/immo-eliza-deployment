@@ -44,4 +44,4 @@ async def create_item(item: Item):
         writer.writerow(item.model_dump().keys())
         writer.writerow(item.model_dump().values())
 
-    return await predict("csv_file.csv")
+    return predict("csv_file.csv")

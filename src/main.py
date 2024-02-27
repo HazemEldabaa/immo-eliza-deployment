@@ -52,7 +52,7 @@ async def create_item(item: Item):
         writer.writerow(item.__dict__().keys())
         writer.writerow(item.__dict__().values())
     print("hi")
-    return await predict("csv_file.csv")
+    return predict("csv_file.csv")
 
 if __name__ == "__main__":
     uvicorn.run("main_app:app", port=8000, host="0.0.0.0", reload=True)
