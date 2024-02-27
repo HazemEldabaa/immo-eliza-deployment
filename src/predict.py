@@ -4,7 +4,7 @@ import pandas as pd
 def predict(file_path):
     data = pd.read_csv(file_path)
 
-    artifacts = joblib.load("src/models/artifacts.joblib")
+    artifacts = joblib.load("src/artifacts.joblib")
 
     # Unpack the artifacts
     num_features = artifacts["features"]["num_features"]
