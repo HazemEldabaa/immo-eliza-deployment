@@ -1,14 +1,15 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 import csv
-from predict import predict
-from typing import Union
 import uvicorn
 
+from predict import predict
+from typing import Union
 app = FastAPI()
 
 class Item(BaseModel):
     nbr_frontages: int
+    equipped_kitchen: str
     nbr_bedrooms: int
     latitude: float
     longitude: float
@@ -33,7 +34,7 @@ class Item(BaseModel):
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "alive"}
 
 @app.post("/predict")
 async def create_item(item: Item):
@@ -41,8 +42,9 @@ async def create_item(item: Item):
         writer = csv.writer(file)
         writer.writerow(item.model_dump().keys())
         writer.writerow(item.model_dump().values())
-    
+
     return predict("csv_file.csv")
 
 if __name__ == "__main__":
-    uvicorn.run(app, port=8000, host="127.0.0.1")
+    uvicorn.run(app, port=8000, host="0.0.0.0")
+
