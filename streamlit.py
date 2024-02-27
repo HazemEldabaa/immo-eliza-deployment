@@ -21,7 +21,8 @@ fl_garden = st.selectbox('Garden ?:',  [0, 1])
 fl_swimming_pool = st.selectbox('Swimming pool ?:',  [0, 1])
 property_type=st.selectbox("Pick property type",['House','appartement'])
 st.header('Select Location on Map')
-latitude, longitude = st.map(50.8503, 4.3517)
+initial_center = (50.8503, 4.3517) 
+latitude, longitude = st.map(initial_center)
 
 region=st.selectbox("Pick region",["Flanders","Wallonia","Brussels-Capital"])
 province = st.selectbox('Province', [
