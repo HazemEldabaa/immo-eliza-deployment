@@ -1,3 +1,5 @@
+import sys
+sys.path.append('/src')
 from fastapi import FastAPI
 from pydantic import BaseModel
 import csv
