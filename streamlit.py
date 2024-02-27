@@ -157,11 +157,29 @@ locality = st.selectbox('Locality:', [
 if st.button('Predict Price'):
     # Prepare input data as JSON
     input_data = {
-        'equipped_kitchen':equipped_kitchen,
-        'nbr_frontages': nbr_frontages,
-        'fl_terrace': fl_terrace,
-        # Add more features as needed
-    }
+    "nbr_frontages": nbr_frontages,
+    "equipped_kitchen": equipped_kitchen,
+    "nbr_bedrooms": nbr_bedrooms,
+    "latitude": latitude,
+    "longitude": longitude,
+    "total_area_sqm": total_area_sqm,
+    "surface_land_sqm": surface_land_sqm,
+    "terrace_sqm": terrace_sqm,
+    "garden_sqm": garden_sqm,
+    "province": province,
+    "heating_type": heating_type,
+    "state_building": state_building,
+    "property_type": property_type,
+    "epc": epc,
+    "locality": locality,
+    "subproperty_type": subproperty_type,
+    "region": region,
+    "fl_terrace": fl_terrace,
+    "fl_garden": fl_garden,
+    "fl_swimming_pool": fl_swimming_pool
+    }   
+
+
 
 
     # Make POST request to FastAPI endpoint
