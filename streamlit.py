@@ -27,7 +27,7 @@ st.title("Property Location")
 
 belgium_coords = [50.8503, 4.3517]  # Latitude and Longitude for Brussels, Belgium
 m = folium.Map(location=belgium_coords, zoom_start=8)
-Draw(export=True,options={"draw": {"polygon": False, "polyline": False, "rectangle": False, "circle": False, "circlemarker": False}}).add_to(m)
+Draw(export=True).add_to(m)
 # Add a marker for Brussels
 
 # Call to render Folium map in Streamlit
@@ -52,6 +52,25 @@ if st_data is not None and st_data.get("last_active_drawing") is not None:
         st.write(f"Last Clicked Longitude: {longitude}")
 else:
     st.warning("Please click on the map to retrieve coordinates")
+    disable_draw_script = """
+    var drawControl = new L.Control.Draw({
+        draw: {
+            polygon: false,
+            rectangle: false,
+            circle: false,
+            circlemarker: false,
+            polyline: false,
+        },
+        edit: {
+            featureGroup: editableLayers,
+            edit: false
+        }
+    });
+    map.addControl(drawControl);
+"""
+
+# Inject the script into the HTML head
+st.markdown(f'<script>{disable_draw_script}</script>', unsafe_allow_html=True)
 region=st.selectbox("Pick region",["Flanders","Wallonia","Brussels-Capital"])
 province = st.selectbox('Province', [
     "West Flanders",
