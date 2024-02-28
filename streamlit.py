@@ -6,6 +6,20 @@ from folium.plugins import Draw
 from folium import plugins
 #Define the URL of the FastAPI endpoint
 FASTAPI_URL = 'https://immo-eliza-deployment-15s3.onrender.com/predict'  # Update with your FastAPI endpoint URL
+coordinates = {
+    "West Flanders": (51.0543, 3.2194),
+    "Antwerp": (51.2195, 4.4024),
+    "East Flanders": (51.0364, 3.7372),
+    "Hainaut": (50.5254, 4.1158),
+    "Brussels": (50.8503, 4.3517),
+    "Liège": (50.6326, 5.5797),
+    "Flemish Brabant": (50.8789, 4.7005),
+    "Limburg": (50.9305, 5.3323),
+    "Walloon Brabant": (50.6602, 4.7167),
+    "Namur": (50.4669, 4.8675),
+    "Luxembourg": (49.8153, 5.8700),
+    "MISSING": (0, 0)  # Replace with the appropriate coordinates for MISSING
+}
 
 #Streamlit App Title
 st.title('Price Prediction Web App')
@@ -23,11 +37,76 @@ fl_terrace = st.selectbox('Terrace ?:',  [0, 1])
 fl_garden = st.selectbox('Garden ?:',  [0, 1])
 fl_swimming_pool = st.selectbox('Swimming pool ?:',  [0, 1])
 property_type=st.selectbox("Pick property type",['House','appartement'])
+region=st.selectbox("Pick region",["Flanders","Wallonia","Brussels-Capital"])
+province = st.selectbox('Province', [
+    "West Flanders",
+    "Antwerp",
+    "East Flanders",
+    "Hainaut",
+    "Brussels",
+    "Liège",
+    "Flemish Brabant",
+    "Limburg",
+    "Walloon Brabant",
+    "Namur",
+    "Luxembourg",
+    "MISSING"
+])
+locality = st.selectbox('Locality:', [
+    "Brussels",
+    "Antwerp",
+    "Liège",
+    "Brugge",
+    "Halle-Vilvoorde",
+    "Gent",
+    "Turnhout",
+    "Leuven",
+    "Nivelles",
+    "Oostend",
+    "Aalst",
+    "Charleroi",
+    "Kortrijk",
+    "Hasselt",
+    "Namur",
+    "Mechelen",
+    "Sint-Niklaas",
+    "Mons",
+    "Veurne",
+    "Dendermonde",
+    "Verviers",
+    "Tournai",
+    "Oudenaarde",
+    "Soignies",
+    "Thuin",
+    "Mouscron",
+    "Dinant",
+    "Tongeren",
+    "Maaseik",
+    "Ath",
+    "Huy",
+    "Marche-en-Famenne",
+    "Waremme",
+    "Neufchâteau",
+    "Arlon",
+    "Diksmuide",
+    "Virton",
+    "Bastogne",
+    "Philippeville",
+    "Roeselare",
+    "Eeklo",
+    "Tielt",
+    "Ieper",
+    "MISSING"
+])
+for p,c in coordinates:
+    if p == province:
+        latitude = c[0]
+        longitude = c[1]
 # Initial coordinates for Brussels
 st.title("Property Location")
 
-belgium_coords = [50.8503, 4.3517]  # Latitude and Longitude for Brussels, Belgium
-m = folium.Map(location=belgium_coords, zoom_start=8)
+#belgium_coords = [50.8503, 4.3517]  # Latitude and Longitude for Brussels, Belgium
+m = folium.Map(location=[latitude,longitude], zoom_start=8)
 Draw(export=True).add_to(m)
 # Add a marker for Brussels
 
@@ -56,21 +135,7 @@ if st_data is not None and st_data.get("last_active_drawing") is not None:
         st.write(f"Last Clicked Longitude: {longitude}")
 else:
     st.warning("Please select the marker and click on the map to retrieve coordinates")
-region=st.selectbox("Pick region",["Flanders","Wallonia","Brussels-Capital"])
-province = st.selectbox('Province', [
-    "West Flanders",
-    "Antwerp",
-    "East Flanders",
-    "Hainaut",
-    "Brussels",
-    "Liège",
-    "Flemish Brabant",
-    "Limburg",
-    "Walloon Brabant",
-    "Namur",
-    "Luxembourg",
-    "MISSING"
-])
+
 heating_type = st.selectbox('Type of heating:', [
     "GAS",
     "MISSING",
