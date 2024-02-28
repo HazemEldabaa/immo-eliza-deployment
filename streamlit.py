@@ -212,19 +212,25 @@ locality = st.selectbox('Locality:', [
     "Ieper",
     "MISSING"
 ])
-for p,c in reg_coordinates.items():
-    if p == region:
-        latitude = c[0]
-        longitude = c[1]
-    for p,c in coordinates.items():
-        if p == province:
-            latitude = c[0]
-            longitude = c[1]
-        for p,c in loc_coordinates.items():
-            if p == locality:
-                latitude = c[0]
-                longitude = c[1]        
-  
+# for p,c in reg_coordinates.items():
+#     if p == region:
+#         latitude = c[0]
+#         longitude = c[1]
+#     for p,c in coordinates.items():
+#         if p == province:
+#             latitude = c[0]
+#             longitude = c[1]
+#         for p,c in loc_coordinates.items():
+#             if p == locality:
+#                 latitude = c[0]
+#                 longitude = c[1]        
+
+if province in coordinates:
+    latitude, longitude = coordinates[province]
+elif locality in loc_coordinates:
+    latitude, longitude = loc_coordinates[locality]
+elif region in reg_coordinates:
+    latitude, longitude = reg_coordinates[region]
 # Initial coordinates for Brussels
 st.title("Property Location")
 
