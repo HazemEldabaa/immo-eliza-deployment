@@ -20,9 +20,20 @@ fl_terrace = st.selectbox('Terrace ?:',  [0, 1])
 fl_garden = st.selectbox('Garden ?:',  [0, 1])
 fl_swimming_pool = st.selectbox('Swimming pool ?:',  [0, 1])
 property_type=st.selectbox("Pick property type",['House','appartement'])
-longitude = st.slider("Longitude", min_value=5.479947, max_value=6.385048, step=0.000001)
-latitude = st.slider("Latitude", min_value=48.824985, max_value=50.351432, step=0.000001)
+# Initial coordinates for Brussels
+initial_center = (50.8503, 4.3517)
 
+    # Display the map
+location = st.map(initial_center)
+
+    # Button to capture the click event
+if st.button("Click on the map to get coordinates"):
+        # Get the coordinates when the button is clicked
+    clicked_location = location.click()
+
+        # Extract latitude and longitude
+    latitude, longitude = clicked_location
+    
 region=st.selectbox("Pick region",["Flanders","Wallonia","Brussels-Capital"])
 province = st.selectbox('Province', [
     "West Flanders",
