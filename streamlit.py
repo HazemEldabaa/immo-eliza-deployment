@@ -143,19 +143,20 @@ region_province_mapping = {
 
 # List of localities for each province
 province_locality_mapping = {
-    "West Flanders": ["Bruges", "Kortrijk", "Ostend","MISSING"],
-    "East Flanders": ["Ghent", "Aalst", "Dendermonde","MISSING"],
-    "Antwerp": ["Antwerp", "Mechelen", "Turnhout","MISSING"],
-    "Hainaut": ["Mons", "Charleroi", "Tournai","MISSING"],
-    "Brussels": ["Brussels","MISSING"],
-    "Liège": ["Liège", "Verviers", "Huy","MISSING"],
-    "Flemish Brabant": ["Leuven", "Aarschot", "Tienen","MISSING"],
-    "Limburg": ["Hasselt", "Genk", "Tongeren","MISSING"],
-    "Walloon Brabant": ["Wavre", "Nivelles", "Waterloo","MISSING"],
-    "Namur": ["Namur", "Dinant", "Ciney","MISSING"],
-    "Luxembourg": ["Arlon", "Bastogne", "Marche-en-Famenne","MISSING"],
+    "Antwerp": ["Antwerp", "Turnhout", "Mechelen"],
+    "East Flanders": ["Gent", "Aalst", "Sint-Niklaas", "Dendermonde", "Oudenaarde", "Eeklo"],
+    "Brussels": ["Brussels"],
+    "Walloon Brabant": ["Nivelles"],
+    "Flemish Brabant": ["Halle-Vilvoorde", "Leuven"],
+    "Liège": ["Liège", "Verviers", "Huy", "Waremme"],
+    "West Flanders": ["Brugge", "Oostend", "Kortrijk", "Veurne", "Diksmuide", "Roeselare", "Tielt", "Ieper"],
+    "Hainaut": ["Charleroi", "Mons", "Tournai", "Soignies", "Thuin", "Mouscron", "Ath"],
+    "Luxembourg": ["Marche-en-Famenne", "Neufchâteau", "Arlon", "Virton", "Bastogne"],
+    "Limburg": ["Hasselt", "Tongeren", "Maaseik"],
+    "Namur": ["Namur", "Dinant", "Philippeville"],
     "MISSING": ["MISSING"]
 }
+
 
 # User selects the region
 region = st.selectbox("Pick region", list(region_province_mapping.keys()))
