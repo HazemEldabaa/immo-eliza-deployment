@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 import folium 
-from streamlit_folium import folium_static
+from streamlit_folium import folium_static, st_folium
 #Define the URL of the FastAPI endpoint
 FASTAPI_URL = 'https://immo-eliza-deployment-15s3.onrender.com/predict'  # Update with your FastAPI endpoint URL
 
@@ -24,39 +24,19 @@ property_type=st.selectbox("Pick property type",['House','appartement'])
 # Initial coordinates for Brussels
 st.title("Dynamic Map with Click Event")
 
-if 'latitude' not in st.session_state:
-    st.session_state.latitude = None
+belgium_coords = [50.8503, 4.3517]  # Latitude and Longitude for Brussels, Belgium
+m = folium.Map(location=belgium_coords, zoom_start=8)
 
-if 'longitude' not in st.session_state:
-    st.session_state.longitude = None
+# Add a marker for Brussels
+folium.Marker(
+    belgium_coords, popup="Brussels", tooltip="Brussels"
+).add_to(m)
 
-m = folium.Map(location=[51.509865, -0.118092], zoom_start=12)
+# Call to render Folium map in Streamlit
+st_data = st_folium(m, width=725)
 
-# Use folium_static to embed the Folium map in Streamlit
-folium_static(m, width=800, height=600)
-
-# Streamlit script to capture click events and deploy marker
-st.markdown("""
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const map = document.querySelector(".folium-map");
-            map.addEventListener("click", function(e) {
-                const lat = e.latlng.lat.toFixed(6);
-                const lng = e.latlng.lng.toFixed(6);
-                console.log("Latitude:", lat, "Longitude:", lng);
-                
-                // Add a marker to the Folium map
-                const marker = L.marker([lat, lng]).addTo(map);
-                marker.bindPopup(`Latitude: ${lat}<br>Longitude: ${lng}`).openPopup();
-                
-                // Save latitude and longitude to Streamlit session state
-                Streamlit.setComponentValue({latitude: lat, longitude: lng});
-            });
-        });
-    </script>
-""", unsafe_allow_html=True)
-longitude = st.session_state.longitude
-latitude = st.session_state.latitude
+longitude = st_data["last_clicked"]["lat"]
+latitude = st_data["last_clicked"]["lng"]
 region=st.selectbox("Pick region",["Flanders","Wallonia","Brussels-Capital"])
 province = st.selectbox('Province', [
     "West Flanders",
