@@ -6,7 +6,7 @@ from folium.plugins import Draw
 from folium import plugins
 import time
 #Define the URL of the FastAPI endpoint
-FASTAPI_URL = 'https://immo-eliza-deployment.onrender.com/predict'  # Update with your FastAPI endpoint URL
+FASTAPI_URL = 'https://immo-eliza-deployment-15s3.onrender.com/predict'  # Update with your FastAPI endpoint URL
 
 
 loc_coordinates = {
