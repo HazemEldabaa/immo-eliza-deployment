@@ -31,16 +31,20 @@ Draw(export=True).add_to(m)
 # Add a marker for Brussels
 
 # Call to render Folium map in Streamlit
-st_data = st_folium(m, width=725)
-c1, c2 = st.columns(2)
-with c1:
-    output = st_data
+st_data = st_folium(m, width=725,options={"draw": {"polygon": False, "polyline": False, "rectangle": False, "circle": False, "circlemarker": False}})
+# if st_data is not None and st_data.get("last_clicked") is not None:
+#     latitude = st_data["last_clicked"].get("lat")
+#     longitude = st_data["last_clicked"].get("lng")
 
-with c2:
-    st.write(output)
-if st_data is not None and st_data.get("last_clicked") is not None:
-    latitude = st_data["last_clicked"].get("lat")
-    longitude = st_data["last_clicked"].get("lng")
+#     if latitude is not None and longitude is not None:
+#         # Now you can use last_clicked_lat and last_clicked_lng
+#         st.write(f"Last Clicked Latitude: {latitude}")
+#         st.write(f"Last Clicked Longitude: {longitude}")
+# else:
+#     st.warning("Please click on the map to retrieve coordinates")
+if st_data is not None and st_data.get("last_active_drawing") is not None:
+    latitude = st_data["last_active_drawing"].get("0")
+    longitude = st_data["last_active_drawing"].get("1")
 
     if latitude is not None and longitude is not None:
         # Now you can use last_clicked_lat and last_clicked_lng
