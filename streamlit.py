@@ -52,25 +52,9 @@ if st_data is not None and st_data.get("last_active_drawing") is not None:
         st.write(f"Last Clicked Longitude: {longitude}")
 else:
     st.warning("Please click on the map to retrieve coordinates")
-    disable_draw_script = """
-    var drawControl = new L.Control.Draw({
-        draw: {
-            polygon: false,
-            rectangle: false,
-            circle: false,
-            circlemarker: false,
-            polyline: false,
-        },
-        edit: {
-            featureGroup: editableLayers,
-            edit: false
-        }
-    });
-    map.addControl(drawControl);
-"""
 
-# Inject the script into the HTML head
-st.markdown(f'<script>{disable_draw_script}</script>', unsafe_allow_html=True)
+
+
 region=st.selectbox("Pick region",["Flanders","Wallonia","Brussels-Capital"])
 province = st.selectbox('Province', [
     "West Flanders",
