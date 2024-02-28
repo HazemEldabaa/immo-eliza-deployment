@@ -37,11 +37,6 @@ st_data = st_folium(m, width=725)
 if st_data["last_clicked"]["lat"] and st_data["last_clicked"]["lng"] is not None:
     longitude = st_data["last_clicked"]["lat"]
     latitude = st_data["last_clicked"]["lng"]
-    m = folium.Map(location=[latitude,longitude], zoom_start=16)
-    st_data = st_folium(m, width=725)
-    longitude = st_data["last_clicked"]["lat"]
-    latitude = st_data["last_clicked"]["lng"]
-
 region=st.selectbox("Pick region",["Flanders","Wallonia","Brussels-Capital"])
 province = st.selectbox('Province', [
     "West Flanders",
