@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+import pydeck as pdk
 
 #Define the URL of the FastAPI endpoint
 FASTAPI_URL = 'https://immo-eliza-deployment-15s3.onrender.com/predict'  # Update with your FastAPI endpoint URL
@@ -21,19 +22,33 @@ fl_garden = st.selectbox('Garden ?:',  [0, 1])
 fl_swimming_pool = st.selectbox('Swimming pool ?:',  [0, 1])
 property_type=st.selectbox("Pick property type",['House','appartement'])
 # Initial coordinates for Brussels
-initial_center = (50.8503, 4.3517)
+st.title("Dynamic Map with Click Event")
 
-    # Display the map
-location = st.map(initial_center)
+# Initial coordinates for Brussels
+initial_center = [50.8503, 4.3517]
 
-    # Button to capture the click event
+# Display the map using pydeck
+st.pydeck_chart(pdk.Deck(
+    map_style='mapbox://styles/mapbox/streets-v11',
+    initial_view_state=pdk.ViewState(
+        latitude=initial_center[0],
+        longitude=initial_center[1],
+        zoom=12,
+        pitch=0,
+    ),
+))
+
+# Button to capture the click event
 if st.button("Click on the map to get coordinates"):
-        # Get the coordinates when the button is clicked
-    clicked_location = location.click()
+    # Wait for a click event
+    clicked_location = st.pydeck_chart(pdk.Deck())
 
-        # Extract latitude and longitude
-    latitude, longitude = clicked_location
-    
+    # Extract latitude and longitude
+    latitude, longitude = clicked_location.map_center
+
+    # Display the clicked coordinates
+    st.write("Clicked Latitude:", latitude)
+    st.write("Clicked Longitude:", longitude)
 region=st.selectbox("Pick region",["Flanders","Wallonia","Brussels-Capital"])
 province = st.selectbox('Province', [
     "West Flanders",
