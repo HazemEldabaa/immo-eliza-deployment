@@ -178,7 +178,7 @@ for p,c in loc_coordinates.items():
 st.title("Property Location")
 
 #belgium_coords = [50.8503, 4.3517]  # Latitude and Longitude for Brussels, Belgium
-m = folium.Map(location=[latitude,longitude], zoom_start=16)
+m = folium.Map(location=[latitude,longitude], zoom_start=12)
 Draw(export=True).add_to(m)
 # Add a marker for Brussels
 
