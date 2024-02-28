@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 import folium 
-
+from streamlit_folium import folium_static
 #Define the URL of the FastAPI endpoint
 FASTAPI_URL = 'https://immo-eliza-deployment-15s3.onrender.com/predict'  # Update with your FastAPI endpoint URL
 
@@ -26,16 +26,16 @@ st.title("Dynamic Map with Click Event")
 
 initial_center = (50.8503, 4.3517)
 
-# Display the map using folium
 m = folium.Map(location=initial_center, zoom_start=12)
+folium_static(m)
 
 # Button to capture the click event
 if st.button("Click on the map to get coordinates"):
     # Wait for a click event
-    click_result = st.folium_chart(m)
+    clicked_location = st.folium_chart(m)
 
     # Extract latitude and longitude
-    latitude, longitude = click_result.map_center
+    latitude, longitude = clicked_location.map_center
 
     # Display the clicked coordinates
     st.write("Clicked Latitude:", latitude)
