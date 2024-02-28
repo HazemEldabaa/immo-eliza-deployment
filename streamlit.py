@@ -18,7 +18,7 @@ coordinates = {
     "Walloon Brabant": (50.6602, 4.7167),
     "Namur": (50.4669, 4.8675),
     "Luxembourg": (49.8153, 5.8700),
-    "MISSING": (0, 0)  # Replace with the appropriate coordinates for MISSING
+    "MISSING": (50.8503, 4.3517)  # Replace with the appropriate coordinates for MISSING
 }
 
 #Streamlit App Title
@@ -98,7 +98,7 @@ locality = st.selectbox('Locality:', [
     "Ieper",
     "MISSING"
 ])
-for p,c in coordinates:
+for p,c in coordinates.items():
     if p == province:
         latitude = c[0]
         longitude = c[1]
