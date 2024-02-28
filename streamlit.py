@@ -134,67 +134,30 @@ equipped_kitchen=st.selectbox("Pick kitchen type",['USA_UNINSTALLED','USA_SEMI_E
                                                'USA_INSTALLED', 'NOT_INSTALLED', 'USA_HYPER_EQUIPPED',
                                                'SEMI_EQUIPPED', 'HYPER_EQUIPPED', 'INSTALLED', 'MISSING'])
 fl_swimming_pool = st.selectbox('Swimming pool ?:',  [0, 1])
-region=st.selectbox("Pick region",["Flanders","Wallonia","Brussels-Capital"])
-province = st.selectbox('Province', [
-    "West Flanders",
-    "Antwerp",
-    "East Flanders",
-    "Hainaut",
-    "Brussels",
-    "Liège",
-    "Flemish Brabant",
-    "Limburg",
-    "Walloon Brabant",
-    "Namur",
-    "Luxembourg",
-    "MISSING"
-])
-locality = st.selectbox('Locality:', [
-    "Brussels",
-    "Antwerp",
-    "Liège",
-    "Brugge",
-    "Halle-Vilvoorde",
-    "Gent",
-    "Turnhout",
-    "Leuven",
-    "Nivelles",
-    "Oostend",
-    "Aalst",
-    "Charleroi",
-    "Kortrijk",
-    "Hasselt",
-    "Namur",
-    "Mechelen",
-    "Sint-Niklaas",
-    "Mons",
-    "Veurne",
-    "Dendermonde",
-    "Verviers",
-    "Tournai",
-    "Oudenaarde",
-    "Soignies",
-    "Thuin",
-    "Mouscron",
-    "Dinant",
-    "Tongeren",
-    "Maaseik",
-    "Ath",
-    "Huy",
-    "Marche-en-Famenne",
-    "Waremme",
-    "Neufchâteau",
-    "Arlon",
-    "Diksmuide",
-    "Virton",
-    "Bastogne",
-    "Philippeville",
-    "Roeselare",
-    "Eeklo",
-    "Tielt",
-    "Ieper",
-    "MISSING"
-])
+# List of regions and their corresponding provinces
+region_province_mapping = {
+    "Flanders": ["West Flanders", "East Flanders", "Antwerp", "Limburg", "Flemish Brabant", "Brussels"],
+    "Wallonia": ["Hainaut", "Liège", "Walloon Brabant", "Namur", "Luxembourg"],
+    "Brussels-Capital": ["Brussels"]
+}
+
+# List of localities for each province
+province_locality_mapping = {
+    "West Flanders": ["Bruges", "Kortrijk", "Ostend"],
+    "East Flanders": ["Ghent", "Aalst", "Dendermonde"],
+    # Add more localities as needed
+}
+
+# User selects the region
+region = st.selectbox("Pick region", list(region_province_mapping.keys()))
+
+# Based on the selected region, dynamically update the options for the province
+provinces_for_region = region_province_mapping.get(region, [])
+province = st.selectbox('Province', provinces_for_region)
+
+# Based on the selected province, dynamically update the options for the locality
+localities_for_province = province_locality_mapping.get(province, [])
+locality = st.selectbox('Locality:', localities_for_province)
 
 for p,c in loc_coordinates.items():
     if p == locality:
