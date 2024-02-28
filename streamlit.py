@@ -212,18 +212,19 @@ locality = st.selectbox('Locality:', [
     "Ieper",
     "MISSING"
 ])
-for p,c in coordinates.items():
-    if p == province:
-        latitude = c[0]
-        longitude = c[1]
-for p,c in loc_coordinates.items():
-    if p == locality:
-        latitude = c[0]
-        longitude = c[1]        
 for p,c in reg_coordinates.items():
     if p == region:
         latitude = c[0]
-        longitude = c[1]  
+        longitude = c[1]
+    for p,c in coordinates.items():
+        if p == province:
+            latitude = c[0]
+            longitude = c[1]
+        for p,c in loc_coordinates.items():
+            if p == locality:
+                latitude = c[0]
+                longitude = c[1]        
+  
 # Initial coordinates for Brussels
 st.title("Property Location")
 
@@ -257,13 +258,6 @@ if st_data is not None and st_data.get("last_active_drawing") is not None:
         st.write(f"Last Clicked Longitude: {longitude}")
 else:
     st.warning("Please select the marker and click on the map to retrieve coordinates")
-
-
-
-
-
-
-
 
 
 
