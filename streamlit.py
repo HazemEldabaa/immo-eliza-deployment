@@ -36,10 +36,6 @@ if st_data is not None and st_data.get("last_clicked") is not None:
     longitude = st_data["last_clicked"].get("lng")
 
     if latitude is not None and longitude is not None:
-        marker = folium.Marker(
-    [latitude,longitude], popup="Brussels", tooltip="Brussels"
-)
-        marker.add_to(m)
         # Now you can use last_clicked_lat and last_clicked_lng
         st.write(f"Last Clicked Latitude: {latitude}")
         st.write(f"Last Clicked Longitude: {longitude}")
