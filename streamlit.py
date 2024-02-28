@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 import folium 
 from streamlit_folium import folium_static, st_folium
+from folium.plugins import Draw
 #Define the URL of the FastAPI endpoint
 FASTAPI_URL = 'https://immo-eliza-deployment-15s3.onrender.com/predict'  # Update with your FastAPI endpoint URL
 
@@ -22,15 +23,21 @@ fl_garden = st.selectbox('Garden ?:',  [0, 1])
 fl_swimming_pool = st.selectbox('Swimming pool ?:',  [0, 1])
 property_type=st.selectbox("Pick property type",['House','appartement'])
 # Initial coordinates for Brussels
-st.title("Dynamic Map with Click Event")
+st.title("Property Location")
 
 belgium_coords = [50.8503, 4.3517]  # Latitude and Longitude for Brussels, Belgium
 m = folium.Map(location=belgium_coords, zoom_start=8)
-
+Draw(export=True).add_to(m)
 # Add a marker for Brussels
 
 # Call to render Folium map in Streamlit
 st_data = st_folium(m, width=725)
+c1, c2 = st.columns(2)
+with c1:
+    output = st_data
+
+with c2:
+    st.write(output)
 if st_data is not None and st_data.get("last_clicked") is not None:
     latitude = st_data["last_clicked"].get("lat")
     longitude = st_data["last_clicked"].get("lng")
