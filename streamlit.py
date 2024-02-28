@@ -28,8 +28,12 @@ belgium_coords = [50.8503, 4.3517]  # Latitude and Longitude for Brussels, Belgi
 m = folium.Map(location=belgium_coords, zoom_start=8)
 
 # Add a marker for Brussels
-
-
+marker = folium.Marker(
+    belgium_coords, popup="Brussels", tooltip="Brussels"
+)
+marker.add_to(m)
+def update_marker_location(lat, lon):
+    marker.location = [lat, lon]
 # Call to render Folium map in Streamlit
 st_data = st_folium(m, width=725)
 if st_data is not None and st_data.get("last_clicked") is not None:
@@ -37,9 +41,7 @@ if st_data is not None and st_data.get("last_clicked") is not None:
     longitude = st_data["last_clicked"].get("lng")
 
     if latitude is not None and longitude is not None:
-        folium.Marker(
-    [latitude,longitude], popup="Brussels", tooltip="Brussels"
-).add_to(m)
+        update_marker_location(latitude,longitude)
         # Now you can use last_clicked_lat and last_clicked_lng
         st.write(f"Last Clicked Latitude: {latitude}")
         st.write(f"Last Clicked Longitude: {longitude}")
