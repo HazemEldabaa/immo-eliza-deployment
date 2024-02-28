@@ -43,10 +43,12 @@ st_data = st_folium(m, width=725)
 # else:
 #     st.warning("Please click on the map to retrieve coordinates")
 if st_data is not None and st_data.get("last_active_drawing") is not None:
-    latitude = st_data["last_active_drawing"].get("0")
-    longitude = st_data["last_active_drawing"].get("1")
+    # Accessing coordinates from the last_active_drawing
+    coordinates = st_data["last_active_drawing"].get("geometry", {}).get("coordinates")
 
-    if latitude is not None and longitude is not None:
+    if coordinates is not None and len(coordinates) == 2:
+        # Extract latitude and longitude
+        latitude, longitude = coordinates
         # Now you can use last_clicked_lat and last_clicked_lng
         st.write(f"Last Clicked Latitude: {latitude}")
         st.write(f"Last Clicked Longitude: {longitude}")
