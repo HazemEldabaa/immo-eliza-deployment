@@ -66,6 +66,11 @@ loc_coordinates = {
     "Ieper": (50.8503, 2.8833),
     "MISSING": (50.8503, 4.3517)  
 }
+reg_coordinates = {
+    "Flanders": (51.0543, 3.7174),  
+    "Wallonia": (50.4108, 4.4998), 
+    "Brussels-Capital": (50.8503, 4.3517)  
+}
 #Streamlit App Title
 st.title('Price Prediction Web App')
 
@@ -73,15 +78,79 @@ st.title('Price Prediction Web App')
 #st.image('streamlit', caption='Streamlit Logo', use_column_width=True)
 
 #Input features for price prediction
-st.header('Enter Features for Prediction')
+st.header('Please Enter House Specifications for Prediction')
+
+nbr_bedrooms = st.number_input('Number of Bedrooms:', min_value=0, max_value=10, value=1)
+nbr_frontages = st.number_input('Number of Frontages:', min_value=0, max_value=10, value=1)
+total_area_sqm = st.number_input('Living Area (sqm):', min_value=0.0, step=10.0)
+surface_land_sqm = st.number_input('Plot Area (sqm):', min_value=0.0, step=10.0)
+fl_terrace = st.selectbox('Terrace ?:',  [0, 1])
+terrace_sqm = st.number_input('Terrace Area (sqm):', min_value=0.0, step=2.0)
+fl_garden = st.selectbox('Garden ?:',  [0, 1])
+garden_sqm = st.number_input('Garden Area (sqm):', min_value=0.0, step=10.0)
+property_type=st.selectbox("Pick property type",['House','appartement'])
+subproperty_type = st.selectbox('Select type of subproperty:',[
+    "HOUSE",
+    "APARTMENT",
+    "VILLA",
+    "GROUND_FLOOR",
+    "APARTMENT_BLOCK",
+    "MIXED_USE_BUILDING",
+    "PENTHOUSE",
+    "DUPLEX",
+    "FLAT_STUDIO",
+    "EXCEPTIONAL_PROPERTY",
+    "TOWN_HOUSE",
+    "SERVICE_FLAT",
+    "MANSION",
+    "BUNGALOW",
+    "KOT",
+    "LOFT",
+    "FARMHOUSE",
+    "COUNTRY_COTTAGE",
+    "MANOR_HOUSE",
+    "TRIPLEX",
+    "OTHER_PROPERTY",
+    "CHALET",
+    "CASTLE"
+])
+
+state_building = st.selectbox('State of building:', [
+    "MISSING",
+    "GOOD",
+    "AS_NEW",
+    "TO_RENOVATE",
+    "TO_BE_DONE_UP",
+    "JUST_RENOVATED",
+    "TO_RESTORE"
+])
+
+epc = st.selectbox('EPC:', [
+    "MISSING",
+    "B",
+    "C",
+    "D",
+    "A",
+    "F",
+    "E",
+    "G",
+    "A+",
+    "A++"
+])
+heating_type = st.selectbox('Type of heating:', [
+    "GAS",
+    "MISSING",
+    "FUELOIL",
+    "ELECTRIC",
+    "PELLET",
+    "WOOD",
+    "SOLAR",
+    "CARBON"
+])
 equipped_kitchen=st.selectbox("Pick kitchen type",['USA_UNINSTALLED','USA_SEMI_EQUIPPED',
                                                'USA_INSTALLED', 'NOT_INSTALLED', 'USA_HYPER_EQUIPPED',
                                                'SEMI_EQUIPPED', 'HYPER_EQUIPPED', 'INSTALLED', 'MISSING'])
-nbr_frontages = st.number_input('Number of Frontages:', min_value=0, max_value=10, value=1)
-fl_terrace = st.selectbox('Terrace ?:',  [0, 1])
-fl_garden = st.selectbox('Garden ?:',  [0, 1])
 fl_swimming_pool = st.selectbox('Swimming pool ?:',  [0, 1])
-property_type=st.selectbox("Pick property type",['House','appartement'])
 region=st.selectbox("Pick region",["Flanders","Wallonia","Brussels-Capital"])
 province = st.selectbox('Province', [
     "West Flanders",
@@ -151,6 +220,10 @@ for p,c in loc_coordinates.items():
     if p == locality:
         latitude = c[0]
         longitude = c[1]        
+for p,c in reg_coordinates.items():
+    if p == locality:
+        latitude = c[0]
+        longitude = c[1]  
 # Initial coordinates for Brussels
 st.title("Property Location")
 
@@ -185,117 +258,12 @@ if st_data is not None and st_data.get("last_active_drawing") is not None:
 else:
     st.warning("Please select the marker and click on the map to retrieve coordinates")
 
-heating_type = st.selectbox('Type of heating:', [
-    "GAS",
-    "MISSING",
-    "FUELOIL",
-    "ELECTRIC",
-    "PELLET",
-    "WOOD",
-    "SOLAR",
-    "CARBON"
-])
-state_building = st.selectbox('State of building:', [
-    "MISSING",
-    "GOOD",
-    "AS_NEW",
-    "TO_RENOVATE",
-    "TO_BE_DONE_UP",
-    "JUST_RENOVATED",
-    "TO_RESTORE"
-])
-
-epc = st.selectbox('EPC:', [
-    "MISSING",
-    "B",
-    "C",
-    "D",
-    "A",
-    "F",
-    "E",
-    "G",
-    "A+",
-    "A++"
-])
-subproperty_type = st.selectbox('Select type of subproperty:',[
-    "HOUSE",
-    "APARTMENT",
-    "VILLA",
-    "GROUND_FLOOR",
-    "APARTMENT_BLOCK",
-    "MIXED_USE_BUILDING",
-    "PENTHOUSE",
-    "DUPLEX",
-    "FLAT_STUDIO",
-    "EXCEPTIONAL_PROPERTY",
-    "TOWN_HOUSE",
-    "SERVICE_FLAT",
-    "MANSION",
-    "BUNGALOW",
-    "KOT",
-    "LOFT",
-    "FARMHOUSE",
-    "COUNTRY_COTTAGE",
-    "MANOR_HOUSE",
-    "TRIPLEX",
-    "OTHER_PROPERTY",
-    "CHALET",
-    "CASTLE"
-])
-nbr_bedrooms = st.number_input('Number of Bedrooms:', min_value=0, max_value=10, value=1)
-surface_area = st.number_input('Surface Area (sqm):', min_value=0.0, step=10.0)
-garden_sqm = st.number_input('Garden Area (sqm):', min_value=0.0, step=10.0)
-total_area_sqm = st.number_input('Living Area (sqm):', min_value=0.0, step=10.0)
-surface_land_sqm = st.number_input('Plot Area (sqm):', min_value=0.0, step=10.0)
-terrace_sqm = st.number_input('Terrace Area (sqm):', min_value=0.0, step=2.0)
 
 
-locality = st.selectbox('Locality:', [
-    "Brussels",
-    "Antwerp",
-    "Liège",
-    "Brugge",
-    "Halle-Vilvoorde",
-    "Gent",
-    "Turnhout",
-    "Leuven",
-    "Nivelles",
-    "Oostend",
-    "Aalst",
-    "Charleroi",
-    "Kortrijk",
-    "Hasselt",
-    "Namur",
-    "Mechelen",
-    "Sint-Niklaas",
-    "Mons",
-    "Veurne",
-    "Dendermonde",
-    "Verviers",
-    "Tournai",
-    "Oudenaarde",
-    "Soignies",
-    "Thuin",
-    "Mouscron",
-    "Dinant",
-    "Tongeren",
-    "Maaseik",
-    "Ath",
-    "Huy",
-    "Marche-en-Famenne",
-    "Waremme",
-    "Neufchâteau",
-    "Arlon",
-    "Diksmuide",
-    "Virton",
-    "Bastogne",
-    "Philippeville",
-    "Roeselare",
-    "Eeklo",
-    "Tielt",
-    "Ieper",
-    "MISSING"
-])
+
+
+
+
 
 
 
