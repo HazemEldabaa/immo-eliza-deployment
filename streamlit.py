@@ -28,19 +28,11 @@ st.title("Property Location")
 
 belgium_coords = [50.8503, 4.3517]  # Latitude and Longitude for Brussels, Belgium
 m = folium.Map(location=belgium_coords, zoom_start=8)
-#Draw(export=True).add_to(m)
+Draw(export=True).add_to(m)
 # Add a marker for Brussels
-editable_layers = folium.FeatureGroup(name='Editable Layers').add_to(m)
 
 # Add Draw control to the map
-draw_control = plugins.Draw(
-    draw={"polygon": False, "polyline": False, "rectangle": False, "circle": False, "circlemarker": False},
-    edit={
-        'featureGroup': editable_layers,
-        'edit': False
-    }
-)
-m.add_child(draw_control)
+
 # Call to render Folium map in Streamlit
 st_data = st_folium(m, width=725)
 # if st_data is not None and st_data.get("last_clicked") is not None:
