@@ -32,12 +32,19 @@ m = folium.Map(location=belgium_coords, zoom_start=8)
 
 # Call to render Folium map in Streamlit
 st_data = st_folium(m, width=725)
-if st_data["last_clicked"]["lat"] and st_data["last_clicked"]["lng"] is not None:
-    longitude = st_data["last_clicked"]["lat"]
-    latitude = st_data["last_clicked"]["lng"]
-    folium.Marker(
+if st_data is not None and st_data.get("last_clicked") is not None:
+    latitude = st_data["last_clicked"].get("lat")
+    longitude = st_data["last_clicked"].get("lng")
+
+    if latitude is not None and longitude is not None:
+        folium.Marker(
     [latitude,longitude], popup="Brussels", tooltip="Brussels"
 ).add_to(m)
+        # Now you can use last_clicked_lat and last_clicked_lng
+        st.write(f"Last Clicked Latitude: {latitude}")
+        st.write(f"Last Clicked Longitude: {longitude}")
+else:
+    st.warning("Folium map not initialized or last_clicked not available.")
 region=st.selectbox("Pick region",["Flanders","Wallonia","Brussels-Capital"])
 province = st.selectbox('Province', [
     "West Flanders",
