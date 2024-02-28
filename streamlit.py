@@ -5,7 +5,7 @@ from streamlit_folium import folium_static, st_folium
 from folium.plugins import Draw
 from folium import plugins
 #Define the URL of the FastAPI endpoint
-FASTAPI_URL = 'https://immo-eliza-deployment-15s3.onrender.com/predict'  # Update with your FastAPI endpoint URL
+FASTAPI_URL = 'https://immo-eliza-deployment.onrender.com/predict'  # Update with your FastAPI endpoint URL
 
 loc_coordinates = {
     "Brussels": (50.8503, 4.3517),
@@ -58,7 +58,7 @@ loc_coordinates = {
 st.title('Price Prediction Web App')
 
 #Image
-#st.image('streamlit', caption='Streamlit Logo', use_column_width=True)
+st.image('streamlit', caption='Streamlit Logo', use_column_width=True)
 
 #Input features for price prediction
 st.header('Please Enter House Specifications for Prediction')
@@ -180,22 +180,11 @@ st.title("Property Location")
 #belgium_coords = [50.8503, 4.3517]  # Latitude and Longitude for Brussels, Belgium
 m = folium.Map(location=[latitude,longitude], zoom_start=12)
 Draw(export=True).add_to(m)
-# Add a marker for Brussels
 
-# Add Draw control to the map
 
 # Call to render Folium map in Streamlit
 st_data = st_folium(m, width=725)
-# if st_data is not None and st_data.get("last_clicked") is not None:
-#     latitude = st_data["last_clicked"].get("lat")
-#     longitude = st_data["last_clicked"].get("lng")
 
-#     if latitude is not None and longitude is not None:
-#         # Now you can use last_clicked_lat and last_clicked_lng
-#         st.write(f"Last Clicked Latitude: {latitude}")
-#         st.write(f"Last Clicked Longitude: {longitude}")
-# else:
-#     st.warning("Please click on the map to retrieve coordinates")
 if st_data is not None and st_data.get("last_active_drawing") is not None:
     # Accessing coordinates from the last_active_drawing
     coordinates = st_data["last_active_drawing"].get("geometry", {}).get("coordinates")
