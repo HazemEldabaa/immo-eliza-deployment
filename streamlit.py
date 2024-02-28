@@ -52,8 +52,10 @@ if st_data is not None and st_data.get("last_active_drawing") is not None:
     if coordinates is not None and len(coordinates) == 2:
         # Extract latitude and longitude
         latitude, longitude = coordinates
+        st.write(f"Last Clicked Latitude: {latitude}")
+        st.write(f"Last Clicked Longitude: {longitude}")
 else:
-    st.warning("Please click on the map to retrieve coordinates")
+    st.warning("Please select the marker and click on the map to retrieve coordinates")
 region=st.selectbox("Pick region",["Flanders","Wallonia","Brussels-Capital"])
 province = st.selectbox('Province', [
     "West Flanders",
