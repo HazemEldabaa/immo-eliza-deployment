@@ -143,17 +143,17 @@ region_province_mapping = {
 
 # List of localities for each province
 province_locality_mapping = {
-    "West Flanders": ["Bruges", "Kortrijk", "Ostend"],
-    "East Flanders": ["Ghent", "Aalst", "Dendermonde"],
-    "Antwerp": ["Antwerp", "Mechelen", "Turnhout"],
-    "Hainaut": ["Mons", "Charleroi", "Tournai"],
-    "Brussels-Capital": ["Brussels City"],
-    "Liège": ["Liège", "Verviers", "Huy"],
-    "Flemish Brabant": ["Leuven", "Aarschot", "Tienen"],
-    "Limburg": ["Hasselt", "Genk", "Tongeren"],
-    "Walloon Brabant": ["Wavre", "Nivelles", "Waterloo"],
-    "Namur": ["Namur", "Dinant", "Ciney"],
-    "Luxembourg": ["Arlon", "Bastogne", "Marche-en-Famenne"],
+    "West Flanders": ["Bruges", "Kortrijk", "Ostend","MISSING"],
+    "East Flanders": ["Ghent", "Aalst", "Dendermonde","MISSING"],
+    "Antwerp": ["Antwerp", "Mechelen", "Turnhout","MISSING"],
+    "Hainaut": ["Mons", "Charleroi", "Tournai","MISSING"],
+    "Brussels": ["Brussels","MISSING"],
+    "Liège": ["Liège", "Verviers", "Huy","MISSING"],
+    "Flemish Brabant": ["Leuven", "Aarschot", "Tienen","MISSING"],
+    "Limburg": ["Hasselt", "Genk", "Tongeren","MISSING"],
+    "Walloon Brabant": ["Wavre", "Nivelles", "Waterloo","MISSING"],
+    "Namur": ["Namur", "Dinant", "Ciney","MISSING"],
+    "Luxembourg": ["Arlon", "Bastogne", "Marche-en-Famenne","MISSING"],
     "MISSING": ["MISSING"]
 }
 
