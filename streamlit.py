@@ -136,16 +136,25 @@ equipped_kitchen=st.selectbox("Pick kitchen type",['USA_UNINSTALLED','USA_SEMI_E
 fl_swimming_pool = st.selectbox('Swimming pool ?:',  [0, 1])
 # List of regions and their corresponding provinces
 region_province_mapping = {
-    "Flanders": ["West Flanders", "East Flanders", "Antwerp", "Limburg", "Flemish Brabant", "Brussels"],
-    "Wallonia": ["Hainaut", "Liège", "Walloon Brabant", "Namur", "Luxembourg"],
-    "Brussels-Capital": ["Brussels"]
+    "Flanders": ["West Flanders", "East Flanders", "Antwerp", "Limburg", "Flemish Brabant","MISSING"],
+    "Wallonia": ["Hainaut", "Liège", "Walloon Brabant", "Namur", "Luxembourg","MISSING"],
+    "Brussels-Capital": ["Brussels","MISSING"]
 }
 
 # List of localities for each province
 province_locality_mapping = {
     "West Flanders": ["Bruges", "Kortrijk", "Ostend"],
     "East Flanders": ["Ghent", "Aalst", "Dendermonde"],
-    # Add more localities as needed
+    "Antwerp": ["Antwerp", "Mechelen", "Turnhout"],
+    "Hainaut": ["Mons", "Charleroi", "Tournai"],
+    "Brussels-Capital": ["Brussels City"],
+    "Liège": ["Liège", "Verviers", "Huy"],
+    "Flemish Brabant": ["Leuven", "Aarschot", "Tienen"],
+    "Limburg": ["Hasselt", "Genk", "Tongeren"],
+    "Walloon Brabant": ["Wavre", "Nivelles", "Waterloo"],
+    "Namur": ["Namur", "Dinant", "Ciney"],
+    "Luxembourg": ["Arlon", "Bastogne", "Marche-en-Famenne"],
+    "MISSING": ["MISSING"]
 }
 
 # User selects the region
