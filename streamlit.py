@@ -55,8 +55,8 @@ st.markdown("""
         });
     </script>
 """, unsafe_allow_html=True)
-longitude = st.session_get.longitude
-latitude = st.session_get.latitude
+longitude = st.session_state.longitude
+latitude = st.session_state.latitude
 region=st.selectbox("Pick region",["Flanders","Wallonia","Brussels-Capital"])
 province = st.selectbox('Province', [
     "West Flanders",
