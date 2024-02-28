@@ -221,7 +221,7 @@ for p,c in loc_coordinates.items():
         latitude = c[0]
         longitude = c[1]        
 for p,c in reg_coordinates.items():
-    if p == locality:
+    if p == region:
         latitude = c[0]
         longitude = c[1]  
 # Initial coordinates for Brussels
