@@ -6,20 +6,7 @@ from folium.plugins import Draw
 from folium import plugins
 #Define the URL of the FastAPI endpoint
 FASTAPI_URL = 'https://immo-eliza-deployment-15s3.onrender.com/predict'  # Update with your FastAPI endpoint URL
-coordinates = {
-    "West Flanders": (51.0543, 3.2194),
-    "Antwerp": (51.2195, 4.4024),
-    "East Flanders": (51.0364, 3.7372),
-    "Hainaut": (50.5254, 4.1158),
-    "Brussels": (50.8503, 4.3517),
-    "Liège": (50.6326, 5.5797),
-    "Flemish Brabant": (50.8789, 4.7005),
-    "Limburg": (50.9305, 5.3323),
-    "Walloon Brabant": (50.6602, 4.7167),
-    "Namur": (50.4669, 4.8675),
-    "Luxembourg": (49.8153, 5.8700),
-    "MISSING": (50.8503, 4.3517)  
-}
+
 loc_coordinates = {
     "Brussels": (50.8503, 4.3517),
     "Antwerp": (51.2194, 4.4025),
@@ -66,11 +53,7 @@ loc_coordinates = {
     "Ieper": (50.8503, 2.8833),
     "MISSING": (50.8503, 4.3517)  
 }
-reg_coordinates = {
-    "Flanders": (51.0543, 3.7174),  
-    "Wallonia": (50.4108, 4.4998), 
-    "Brussels-Capital": (50.8503, 4.3517)  
-}
+
 #Streamlit App Title
 st.title('Price Prediction Web App')
 
@@ -212,25 +195,12 @@ locality = st.selectbox('Locality:', [
     "Ieper",
     "MISSING"
 ])
-# for p,c in reg_coordinates.items():
-#     if p == region:
-#         latitude = c[0]
-#         longitude = c[1]
-#     for p,c in coordinates.items():
-#         if p == province:
-#             latitude = c[0]
-#             longitude = c[1]
-#         for p,c in loc_coordinates.items():
-#             if p == locality:
-#                 latitude = c[0]
-#                 longitude = c[1]        
 
-if province in coordinates:
-    latitude, longitude = coordinates[province]
-elif locality in loc_coordinates:
-    latitude, longitude = loc_coordinates[locality]
-elif region in reg_coordinates:
-    latitude, longitude = reg_coordinates[region]
+for p,c in loc_coordinates.items():
+    if p == locality:
+        latitude = c[0]
+        longitude = c[1]        
+  
 # Initial coordinates for Brussels
 st.title("Property Location")
 
