@@ -24,23 +24,39 @@ property_type=st.selectbox("Pick property type",['House','appartement'])
 # Initial coordinates for Brussels
 st.title("Dynamic Map with Click Event")
 
-initial_center = (50.8503, 4.3517)
+if 'latitude' not in st.session_state:
+    st.session_state.latitude = None
 
-m = folium.Map(location=initial_center, zoom_start=12)
-folium_static(m)
+if 'longitude' not in st.session_state:
+    st.session_state.longitude = None
 
-# Button to capture the click event
-if st.button("Click on the map to get coordinates"):
-    # Wait for a click event
-    clicked_location = st.folium_chart(m)
+m = folium.Map(location=[51.509865, -0.118092], zoom_start=12)
 
-    # Extract latitude and longitude
-    latitude, longitude = clicked_location.map_center
+# Use folium_static to embed the Folium map in Streamlit
+folium_static(m, width=800, height=600)
 
-    # Display the clicked coordinates
-    st.write("Clicked Latitude:", latitude)
-    st.write("Clicked Longitude:", longitude)
-
+# Streamlit script to capture click events and deploy marker
+st.markdown("""
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const map = document.querySelector(".folium-map");
+            map.addEventListener("click", function(e) {
+                const lat = e.latlng.lat.toFixed(6);
+                const lng = e.latlng.lng.toFixed(6);
+                console.log("Latitude:", lat, "Longitude:", lng);
+                
+                // Add a marker to the Folium map
+                const marker = L.marker([lat, lng]).addTo(map);
+                marker.bindPopup(`Latitude: ${lat}<br>Longitude: ${lng}`).openPopup();
+                
+                // Save latitude and longitude to Streamlit session state
+                Streamlit.setComponentValue({latitude: lat, longitude: lng});
+            });
+        });
+    </script>
+""", unsafe_allow_html=True)
+longitude = st.session_get.longitude
+latitude = st.session_get.latitude
 region=st.selectbox("Pick region",["Flanders","Wallonia","Brussels-Capital"])
 province = st.selectbox('Province', [
     "West Flanders",
