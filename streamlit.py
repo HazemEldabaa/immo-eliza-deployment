@@ -4,8 +4,10 @@ import folium
 from streamlit_folium import folium_static, st_folium
 from folium.plugins import Draw
 from folium import plugins
+import time
 #Define the URL of the FastAPI endpoint
 FASTAPI_URL = 'https://immo-eliza-deployment.onrender.com/predict'  # Update with your FastAPI endpoint URL
+
 
 loc_coordinates = {
     "Brussels": (50.8503, 4.3517),
@@ -53,24 +55,89 @@ loc_coordinates = {
     "Ieper": (50.8503, 2.8833),
     "MISSING": (50.8503, 4.3517)  
 }
+region_province_mapping = {
+    "Flanders": ["West Flanders", "East Flanders", "Antwerp", "Limburg", "Flemish Brabant","MISSING"],
+    "Wallonia": ["Hainaut", "Liège", "Walloon Brabant", "Namur", "Luxembourg","MISSING"],
+    "Brussels-Capital": ["Brussels","MISSING"]
+}
 
+# List of localities for each province
+province_locality_mapping = {
+    "Antwerp": ["Antwerp", "Turnhout", "Mechelen"],
+    "East Flanders": ["Gent", "Aalst", "Sint-Niklaas", "Dendermonde", "Oudenaarde", "Eeklo"],
+    "Brussels": ["Brussels"],
+    "Walloon Brabant": ["Nivelles"],
+    "Flemish Brabant": ["Halle-Vilvoorde", "Leuven"],
+    "Liège": ["Liège", "Verviers", "Huy", "Waremme"],
+    "West Flanders": ["Brugge", "Oostend", "Kortrijk", "Veurne", "Diksmuide", "Roeselare", "Tielt", "Ieper"],
+    "Hainaut": ["Charleroi", "Mons", "Tournai", "Soignies", "Thuin", "Mouscron", "Ath"],
+    "Luxembourg": ["Marche-en-Famenne", "Neufchâteau", "Arlon", "Virton", "Bastogne"],
+    "Limburg": ["Hasselt", "Tongeren", "Maaseik"],
+    "Namur": ["Namur", "Dinant", "Philippeville"],
+    "MISSING": ["MISSING"]
+}
+st.title('Welcome to')
+st.image("https://i.ibb.co/d2335Cq/logo1.png", width=700)
 #Streamlit App Title
-st.title('Price Prediction Web App')
+
 
 #Image
-st.image('streamlit', caption='Streamlit Logo', use_column_width=True)
+#st.image('streamlit', caption='Streamlit Logo', use_column_width=True)
 
 #Input features for price prediction
-st.header('Please Enter House Specifications for Prediction')
 
-nbr_bedrooms = st.number_input('Number of Bedrooms:', min_value=0, max_value=10, value=1)
-nbr_frontages = st.number_input('Number of Frontages:', min_value=0, max_value=10, value=1)
-total_area_sqm = st.number_input('Living Area (sqm):', min_value=0.0, step=10.0)
-surface_land_sqm = st.number_input('Plot Area (sqm):', min_value=0.0, step=10.0)
-fl_terrace = st.selectbox('Terrace ?:',  [0, 1])
-terrace_sqm = st.number_input('Terrace Area (sqm):', min_value=0.0, step=2.0)
-fl_garden = st.selectbox('Garden ?:',  [0, 1])
-garden_sqm = st.number_input('Garden Area (sqm):', min_value=0.0, step=10.0)
+st.header("Describe your property for us, and we'll give you a prediction!")
+st.subheader('Naviagte through the menus for the location the use the marker on the map for best accuracy')
+col1, col2 = st.columns([1, 2])
+with col1:
+    # User selects the region
+    region = st.selectbox("Pick region", list(region_province_mapping.keys()))
+
+    # Based on the selected region, dynamically update the options for the province
+    provinces_for_region = region_province_mapping.get(region, [])
+    province = st.selectbox('Province', provinces_for_region)
+
+    # Based on the selected province, dynamically update the options for the locality
+    localities_for_province = province_locality_mapping.get(province, [])
+    locality = st.selectbox('Locality:', localities_for_province)
+
+    for p,c in loc_coordinates.items():
+        if p == locality:
+            latitude = c[0]
+            longitude = c[1]       
+    nbr_bedrooms = st.number_input('Number of Bedrooms:', min_value=0, max_value=10, value=1)   
+
+    nbr_frontages = st.number_input('Number of Frontages:', min_value=0, max_value=10, value=1)
+    total_area_sqm = st.number_input('Living Area (sqm):', min_value=0.0, step=10.0)
+    surface_land_sqm = st.number_input('Plot Area (sqm):', min_value=0.0, step=10.0)
+    fl_terrace = st.selectbox('Terrace ?:',  [0, 1])
+    terrace_sqm = st.number_input('Terrace Area (sqm):', min_value=0.0, step=2.0)
+    fl_garden = st.selectbox('Garden ?:',  [0, 1])
+    garden_sqm = st.number_input('Garden Area (sqm):', min_value=0.0, step=10.0)
+    
+with col2:
+
+    # Initial coordinates for Brussels
+    st.title("Location (Use Marker)")
+
+    #belgium_coords = [50.8503, 4.3517]  # Latitude and Longitude for Brussels, Belgium
+    m = folium.Map(location=[latitude,longitude], zoom_start=12)
+    Draw(export=True).add_to(m)
+
+
+# Call to render Folium map in Streamlit
+    st_data = st_folium(m, width=800)
+    if st_data is not None and st_data.get("last_active_drawing") is not None:
+    # Accessing coordinates from the last_active_drawing
+        coordinates = st_data["last_active_drawing"].get("geometry", {}).get("coordinates")
+
+        if coordinates is not None and len(coordinates) == 2:
+            # Extract latitude and longitude
+            latitude, longitude = coordinates
+            st.write(f"Last Clicked Latitude: {latitude}")
+            st.write(f"Last Clicked Longitude: {longitude}")
+    else:
+        st.warning("Please select the marker and click on the map to retrieve coordinates")
 property_type=st.selectbox("Pick property type",['House','appartement'])
 subproperty_type = st.selectbox('Select type of subproperty:',[
     "HOUSE",
@@ -134,68 +201,10 @@ equipped_kitchen=st.selectbox("Pick kitchen type",['USA_UNINSTALLED','USA_SEMI_E
                                                'USA_INSTALLED', 'NOT_INSTALLED', 'USA_HYPER_EQUIPPED',
                                                'SEMI_EQUIPPED', 'HYPER_EQUIPPED', 'INSTALLED', 'MISSING'])
 fl_swimming_pool = st.selectbox('Swimming pool ?:',  [0, 1])
-# List of regions and their corresponding provinces
-region_province_mapping = {
-    "Flanders": ["West Flanders", "East Flanders", "Antwerp", "Limburg", "Flemish Brabant","MISSING"],
-    "Wallonia": ["Hainaut", "Liège", "Walloon Brabant", "Namur", "Luxembourg","MISSING"],
-    "Brussels-Capital": ["Brussels","MISSING"]
-}
 
-# List of localities for each province
-province_locality_mapping = {
-    "Antwerp": ["Antwerp", "Turnhout", "Mechelen"],
-    "East Flanders": ["Gent", "Aalst", "Sint-Niklaas", "Dendermonde", "Oudenaarde", "Eeklo"],
-    "Brussels": ["Brussels"],
-    "Walloon Brabant": ["Nivelles"],
-    "Flemish Brabant": ["Halle-Vilvoorde", "Leuven"],
-    "Liège": ["Liège", "Verviers", "Huy", "Waremme"],
-    "West Flanders": ["Brugge", "Oostend", "Kortrijk", "Veurne", "Diksmuide", "Roeselare", "Tielt", "Ieper"],
-    "Hainaut": ["Charleroi", "Mons", "Tournai", "Soignies", "Thuin", "Mouscron", "Ath"],
-    "Luxembourg": ["Marche-en-Famenne", "Neufchâteau", "Arlon", "Virton", "Bastogne"],
-    "Limburg": ["Hasselt", "Tongeren", "Maaseik"],
-    "Namur": ["Namur", "Dinant", "Philippeville"],
-    "MISSING": ["MISSING"]
-}
-
-
-# User selects the region
-region = st.selectbox("Pick region", list(region_province_mapping.keys()))
-
-# Based on the selected region, dynamically update the options for the province
-provinces_for_region = region_province_mapping.get(region, [])
-province = st.selectbox('Province', provinces_for_region)
-
-# Based on the selected province, dynamically update the options for the locality
-localities_for_province = province_locality_mapping.get(province, [])
-locality = st.selectbox('Locality:', localities_for_province)
-
-for p,c in loc_coordinates.items():
-    if p == locality:
-        latitude = c[0]
-        longitude = c[1]        
   
-# Initial coordinates for Brussels
-st.title("Property Location")
-
-#belgium_coords = [50.8503, 4.3517]  # Latitude and Longitude for Brussels, Belgium
-m = folium.Map(location=[latitude,longitude], zoom_start=12)
-Draw(export=True).add_to(m)
 
 
-# Call to render Folium map in Streamlit
-st_data = st_folium(m, width=725)
-
-if st_data is not None and st_data.get("last_active_drawing") is not None:
-    # Accessing coordinates from the last_active_drawing
-    coordinates = st_data["last_active_drawing"].get("geometry", {}).get("coordinates")
-
-    if coordinates is not None and len(coordinates) == 2:
-        # Extract latitude and longitude
-        latitude, longitude = coordinates
-        st.write(f"Last Clicked Latitude: {latitude}")
-        st.write(f"Last Clicked Longitude: {longitude}")
-else:
-    st.warning("Please select the marker and click on the map to retrieve coordinates")
 
 
 
@@ -232,10 +241,13 @@ if st.button('Predict Price'):
     # Make POST request to FastAPI endpoint
     try:
         response = requests.post(FASTAPI_URL, json=input_data)
-        if response.status_code == 200:
-            predicted_price = response.json()[0]
-            st.success(f'Predicted Price: €{predicted_price:.2f}')
-        else:
-            st.error('Failed to get prediction. Please try again.')
+        predicted_price = response.json()[0]
+
+        progress_bar = st.progress(0)
+        for perc_completed in range(100):
+            time.sleep(0.05)  
+            progress_bar.progress(perc_completed + 1)
+
+        st.success(f'Predicted Price: €{predicted_price:.2f}')
     except Exception as e:
         st.error(f'An error occurred: {str(e)}')
