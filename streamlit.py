@@ -28,15 +28,16 @@ belgium_coords = [50.8503, 4.3517]  # Latitude and Longitude for Brussels, Belgi
 m = folium.Map(location=belgium_coords, zoom_start=8)
 
 # Add a marker for Brussels
-folium.Marker(
-    belgium_coords, popup="Brussels", tooltip="Brussels"
-).add_to(m)
+
 
 # Call to render Folium map in Streamlit
 st_data = st_folium(m, width=725)
 if st_data["last_clicked"]["lat"] and st_data["last_clicked"]["lng"] is not None:
     longitude = st_data["last_clicked"]["lat"]
     latitude = st_data["last_clicked"]["lng"]
+    folium.Marker(
+    [latitude,longitude], popup="Brussels", tooltip="Brussels"
+).add_to(m)
 region=st.selectbox("Pick region",["Flanders","Wallonia","Brussels-Capital"])
 province = st.selectbox('Province', [
     "West Flanders",
