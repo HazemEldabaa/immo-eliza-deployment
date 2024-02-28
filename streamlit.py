@@ -18,9 +18,54 @@ coordinates = {
     "Walloon Brabant": (50.6602, 4.7167),
     "Namur": (50.4669, 4.8675),
     "Luxembourg": (49.8153, 5.8700),
-    "MISSING": (50.8503, 4.3517)  # Replace with the appropriate coordinates for MISSING
+    "MISSING": (50.8503, 4.3517)  
 }
-
+loc_coordinates = {
+    "Brussels": (50.8503, 4.3517),
+    "Antwerp": (51.2194, 4.4025),
+    "Liège": (50.8503, 5.6889),
+    "Brugge": (51.2094, 3.2247),
+    "Halle-Vilvoorde": (50.8333, 4.3),
+    "Gent": (51.0543, 3.7174),
+    "Turnhout": (51.3223, 4.9483),
+    "Leuven": (50.8792, 4.7009),
+    "Nivelles": (50.5974, 4.3279),
+    "Oostend": (51.2093, 2.9296),
+    "Aalst": (50.9364, 4.0355),
+    "Charleroi": (50.4101, 4.4447),
+    "Kortrijk": (50.8284, 3.2653),
+    "Hasselt": (50.9311, 5.3375),
+    "Namur": (50.4669, 4.8675),
+    "Mechelen": (51.0259, 4.4773),
+    "Sint-Niklaas": (51.1585, 4.1437),
+    "Mons": (50.4541, 3.9561),
+    "Veurne": (51.0749, 2.6564),
+    "Dendermonde": (51.0259, 4.1059),
+    "Verviers": (50.5891, 5.8667),
+    "Tournai": (50.6052, 3.3879),
+    "Oudenaarde": (50.8466, 3.611),
+    "Soignies": (50.5796, 4.0714),
+    "Thuin": (50.3397, 4.2859),
+    "Mouscron": (50.7399, 3.2069),
+    "Dinant": (50.2606, 4.9125),
+    "Tongeren": (50.7805, 5.4645),
+    "Maaseik": (51.0984, 5.7886),
+    "Ath": (50.6303, 3.7806),
+    "Huy": (50.5201, 5.2394),
+    "Marche-en-Famenne": (50.2232, 5.3485),
+    "Waremme": (50.6986, 5.256),
+    "Neufchâteau": (49.8412, 5.4429),
+    "Arlon": (49.6837, 5.8149),
+    "Diksmuide": (51.0339, 2.8614),
+    "Virton": (49.5665, 5.5232),
+    "Bastogne": (50.0039, 5.7215),
+    "Philippeville": (50.1669, 4.5475),
+    "Roeselare": (50.9489, 3.121),
+    "Eeklo": (51.1871, 3.5492),
+    "Tielt": (50.999, 3.3396),
+    "Ieper": (50.8503, 2.8833),
+    "MISSING": (50.8503, 4.3517)  
+}
 #Streamlit App Title
 st.title('Price Prediction Web App')
 
@@ -102,6 +147,10 @@ for p,c in coordinates.items():
     if p == province:
         latitude = c[0]
         longitude = c[1]
+for p,c in loc_coordinates.items():
+    if p == locality:
+        latitude = c[0]
+        longitude = c[1]        
 # Initial coordinates for Brussels
 st.title("Property Location")
 
