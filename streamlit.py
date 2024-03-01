@@ -405,46 +405,48 @@ def page_three():
 
             with col2:
                 st.subheader("Price per square meters per province")
-                fig, ax = plt.subplots()
+                if st.session_state.total_area_sqm != 0:
+                    fig, ax = plt.subplots()
 
-                q1_value = Q1_province[st.session_state.province]
-                q2_value = Q2_province[st.session_state.province]
-                q3_value = Q3_province[st.session_state.province]
+                    q1_value = Q1_province[st.session_state.province]
+                    q2_value = Q2_province[st.session_state.province]
+                    q3_value = Q3_province[st.session_state.province]
 
-                sigma = (q3_value - q1_value) / 1.349  # This factor comes from the interquartile range of a normal distribution
-                mu = q2_value
+                    sigma = (q3_value - q1_value) / 1.349  # This factor comes from the interquartile range of a normal distribution
+                    mu = q2_value
 
-                # Create a range of values for the x-axis (prices)
-                x = np.linspace(mu - 3*sigma, mu + 3*sigma, 100)
+                    # Create a range of values for the x-axis (prices)
+                    x = np.linspace(mu - 3*sigma, mu + 3*sigma, 100)
 
-                # Create the normal distribution curve for the y-axis
-                y = (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((x - mu) / sigma) ** 2)
+                    # Create the normal distribution curve for the y-axis
+                    y = (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((x - mu) / sigma) ** 2)
 
-                # Start plotting
-                fig, ax = plt.subplots()
+                    # Start plotting
+                    fig, ax = plt.subplots()
 
-                # Plot the normal distribution curve
-                ax.plot(x, y, color='blue')
+                    # Plot the normal distribution curve
+                    ax.plot(x, y, color='blue')
 
-                ax.plot(price_per_sqm, (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((price_per_sqm - mu) / sigma) ** 2), 'ro')
-                ax.annotate(f'{price_per_sqm:.2f}', (price_per_sqm, (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((price_per_sqm - mu) / sigma) ** 2)))
+                    ax.plot(price_per_sqm, (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((price_per_sqm - mu) / sigma) ** 2), 'ro', label=f'Actual price = {price_per_sqm:.2f}')
+                    ax.annotate(f'{price_per_sqm:.2f}', (price_per_sqm, (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((price_per_sqm - mu) / sigma) ** 2)))
 
-                # Plot the Q1, Q2, and Q3 points on the curve
-                ax.plot(q1_value, (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((q1_value - mu) / sigma) ** 2), 'go')
-                ax.annotate(f'{q1_value:.2f}', (q1_value, (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((q1_value - mu) / sigma) ** 2)))
-                ax.plot(q2_value, (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((q2_value - mu) / sigma) ** 2), 'mo')
-                ax.annotate(f'{q2_value:.2f}', (q2_value, (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((q2_value - mu) / sigma) ** 2)))
-                ax.plot(q3_value, (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((q3_value - mu) / sigma) ** 2), 'mo', label=q3_value)
-                ax.annotate(f'{q3_value:.2f}', (q3_value, (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((q3_value - mu) / sigma) ** 2)))
+                    # Plot the Q1, Q2, and Q3 points on the curve
+                    ax.plot(q1_value, (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((q1_value - mu) / sigma) ** 2), 'go', label=f'Q1 = {q1_value:.2f}')
+                    ax.plot(q2_value, (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((q2_value - mu) / sigma) ** 2), 'mo', label=f'Q2 = {q2_value:.2f}')
+                    ax.plot(q3_value, (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((q3_value - mu) / sigma) ** 2), 'bo', label=f'Q3 = {q3_value:.2f}')
 
-        
-                # Set the title and labels
-                ax.set_title(f'Price distribution in {st.session_state.province}')
-                ax.set_xlabel('Price per mÂ²')
-                ax.set_ylabel('Density')
+                    # Add a legend
+                    ax.legend()
 
-                # Display the plot 
-                st.pyplot(fig)
+                    # Set the title and labels
+                    ax.set_title(f'Price distribution in {st.session_state.province}')
+                    ax.set_xlabel('Price per mÂ²')
+                    ax.set_ylabel('Density')
+
+                    # Display the plot in Streamlit
+                    st.pyplot(fig)
+                else:
+                    st.write(f"Locality: {st.session_state.locality}, Total area is zero, cannot calculate price per sqm.")
         except Exception as e:
             st.error(f'An error occurred: {str(e)}')
 
