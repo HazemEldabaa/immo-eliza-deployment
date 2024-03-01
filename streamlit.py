@@ -394,7 +394,7 @@ def page_three():
                     delta = price_per_sqm - avg_price_per_sqm_loc[st.session_state.locality]
 
                     #delta_color = 'normal' if delta <= 0 else 'inverse'  # 'inverse' for red, if Streamlit version supports it
-                    delta_color = 'green' if delta > 0 else 'red'
+                    delta_color = 'normal' if delta > 0 else 'inverse'
 
                     if abs(delta) >= price_per_sqm:
                         delta_value = f"{delta}"
