@@ -182,7 +182,7 @@ st.image("https://i.ibb.co/d2335Cq/logo1.png", width=700)
 def page_one():
     # Input fields or widgets for page one
     st.header("Describe your property for us, and we'll give you a prediction!")
-    st.subheader('Naviagte through the menus for the location the use the marker on the map for best accuracy')
+    st.subheader('Navigate through the menus for the location the use the marker on the map for best accuracy')
     col1, col2 = st.columns([1, 2])
     with col1:
         st.write("")
@@ -387,14 +387,14 @@ def page_three():
             st.success(f'Predicted Price: €{predicted_price:.2f}')
             col1, col2 = st.columns([1, 2])
             with col1:
-                st.subheader("Price per square meters per locality")
+                st.subheader("Price per square meters - locality")
                 if st.session_state.total_area_sqm != 0:
                     price_per_sqm = predicted_price / st.session_state.total_area_sqm
                     #delta = avg_price_per_sqm_loc[st.session_state.locality]
                     delta = price_per_sqm - avg_price_per_sqm_loc[st.session_state.locality]
 
                     #delta_color = 'normal' if delta <= 0 else 'inverse'  # 'inverse' for red, if Streamlit version supports it
-                    delta_color = 'normal' if delta > 0 else 'inverse'
+                    #delta_color = 'normal' if delta > 0 else 'inverse'
 
                     if abs(delta) >= price_per_sqm:
                         delta_value = f"{delta}"
@@ -406,13 +406,13 @@ def page_three():
                                 label=st.session_state.locality,
                                 value=round(price_per_sqm, 2),
                                 delta=f"{round((delta), 2)}: Δ from average",
-                                delta_color=delta_color
+                                delta_color="normal"
                             )                
                 else:
                     st.write(f"Locality: {st.session_state.locality}, Total area is zero, cannot calculate price per sqm.")
 
             with col2:
-                st.subheader("Price per square meters per province")
+                st.subheader("Price per square meters - province")
                 if st.session_state.total_area_sqm != 0:
                     fig, ax = plt.subplots()
 
