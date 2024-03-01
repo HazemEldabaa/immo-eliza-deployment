@@ -390,8 +390,11 @@ def page_three():
                 st.subheader("Price per square meters per locality")
                 if st.session_state.total_area_sqm != 0:
                     price_per_sqm = predicted_price / st.session_state.total_area_sqm
-                    delta = avg_price_per_sqm_loc[st.session_state.locality]
-                    delta_color = 'normal' if delta <= 0 else 'inverse'  # 'inverse' for red, if Streamlit version supports it
+                    #delta = avg_price_per_sqm_loc[st.session_state.locality]
+                    delta = price_per_sqm - avg_price_per_sqm_loc[st.session_state.locality]
+
+                    #delta_color = 'normal' if delta <= 0 else 'inverse'  # 'inverse' for red, if Streamlit version supports it
+                    delta_color = 'green' if delta > 0 else 'red'
 
                     if abs(delta) >= price_per_sqm:
                         delta_value = f"{delta}"
@@ -399,7 +402,12 @@ def page_three():
                         delta_value = f"{delta}"
 
                     # Display the metric with the delta
-                    st.metric(label=st.session_state.locality, value=round(price_per_sqm,2), delta=round(avg_price_per_sqm_loc[st.session_state.locality],2), delta_color=delta_color)
+                    st.metric(
+                                label=st.session_state.locality,
+                                value=round(price_per_sqm, 2),
+                                delta=f"{round(abs(delta), 2)}",
+                                delta_color=delta_color
+                            )                
                 else:
                     st.write(f"Locality: {st.session_state.locality}, Total area is zero, cannot calculate price per sqm.")
 
