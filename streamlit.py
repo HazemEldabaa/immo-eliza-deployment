@@ -405,7 +405,7 @@ def page_three():
                     st.metric(
                                 label=st.session_state.locality,
                                 value=round(price_per_sqm, 2),
-                                delta=f"{round((delta), 2)}: Difference from average",
+                                delta=f"{round((delta), 2)}: Δ from average",
                                 delta_color=delta_color
                             )                
                 else:
