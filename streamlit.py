@@ -176,7 +176,7 @@ Q3_province = {
     "Walloon Brabant": 3451.19,
     "West Flanders": 4775.43}
 st.title('Welcome to')
-st.image("https://i.ibb.co/d2335Cq/logo1.png", width=700)
+st.image("https://i.ibb.co/d2335Cq/logo1.png", use_column_width=True)
 
 #Input features for price prediction
 def page_one():
