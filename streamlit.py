@@ -362,10 +362,11 @@ def page_three():
         "CARBON",
         
     ])
+    heating_type = "MISSING" if heating_type == "I Don't Know" else heating_type
     equipped_kitchen=st.selectbox("Pick kitchen type",["I Don't Know",'USA_UNINSTALLED','USA_SEMI_EQUIPPED',
                                                 'USA_INSTALLED', 'NOT_INSTALLED', 'USA_HYPER_EQUIPPED',
                                                 'SEMI_EQUIPPED', 'HYPER_EQUIPPED', 'INSTALLED'])
-
+    equipped_kitchen = "MISSING" if heating_type == "I Don't Know" else heating_type
     option_swimming_pool = st.selectbox('Does it have a swimming pool ?:',  ['Yes', 'No'])
     fl_swimming_pool = 1 if option_swimming_pool == "Yes" else 0
 
