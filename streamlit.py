@@ -410,7 +410,7 @@ def page_three():
                 time.sleep(0.05)  
                 progress_bar.progress(perc_completed + 1)
     
-            st.success(f'Predicted Price: €{predicted_price:.2f}')
+            st.success(f'Predicted Price: €{predicted_price:,.2f}')
             col1, col2 = st.columns([1, 2])
             with col1:
                 st.subheader("Price per square meters - locality")
