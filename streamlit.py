@@ -261,9 +261,14 @@ def page_two():
     nbr_frontages = st.number_input('Number of Frontages:', min_value=0, max_value=10, value=1)
     total_area_sqm = st.number_input('Living Area (sqm):', min_value=0.0, step=10.0, value=10.0)
     surface_land_sqm = st.number_input('Plot Area (sqm):', min_value=0.0, step=10.0)
-    fl_terrace = st.selectbox('Terrace ?:',  [0, 1])
-    terrace_sqm = st.number_input('Terrace Area (sqm):', min_value=0.0, step=2.0)
-    fl_garden = st.selectbox('Garden ?:',  [0, 1])
+    option = st.radio('Does it have a terrace ?', ('Yes', 'No'))
+
+    # Mapping 'Yes' or 'No' to 0 or 1
+    fl_terrace = 1 if option == 'Yes' else 0
+
+    terrace_sqm = st.number_input('Terrace Aea (sqm):', min_value=0.0, step=2.0)
+    option_garden = st.radio('Does it have a garden ?:',  [0, 1])
+    fl_garden = 1 if option_garden == 'Yes' else 0
     garden_sqm = st.number_input('Garden Area (sqm):', min_value=0.0, step=10.0)
     
     # Additional input fields or widgets for page two
