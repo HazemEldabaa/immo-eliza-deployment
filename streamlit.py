@@ -413,7 +413,7 @@ def page_three():
             st.success(f'Predicted Price: €{predicted_price:,.2f}')
             col1, col2 = st.columns([1, 2])
             with col1:
-                st.subheader("Price per square meters - locality")
+                st.subheader(f"Price per square meters - {st.session_state.locality}")
                 if st.session_state.total_area_sqm != 0:
                     price_per_sqm = predicted_price / st.session_state.total_area_sqm
                     #delta = avg_price_per_sqm_loc[st.session_state.locality]
@@ -429,7 +429,7 @@ def page_three():
 
                     # Display the metric with the delta
                     st.metric(
-                                label=st.session_state.locality,
+                                #label=st.session_state.locality,
                                 value=f"€{price_per_sqm:,.2f}",
                                 delta = f"{round(delta, 2):,}: Δ€ from average",
                                 delta_color="normal"
@@ -438,7 +438,7 @@ def page_three():
                     st.write(f"Locality: {st.session_state.locality}, Total area is zero, cannot calculate price per sqm.")
 
             with col2:
-                st.subheader("Price per square meters - province")
+                st.subheader(f"Price per square meters - {st.session_state.province}")
                 if st.session_state.total_area_sqm != 0:
                     fig, ax = plt.subplots()
 
