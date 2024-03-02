@@ -1,6 +1,6 @@
 [theme]
 primaryColor="purple"
 backgroundColor="#16071F"
-secondaryBackgroundColor="pruple"
-textColor="white"
+secondaryBackgroundColor="purple"
+textColor="#EFE8F3"
 font="sans serif"
