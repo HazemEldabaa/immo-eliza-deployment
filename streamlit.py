@@ -267,7 +267,7 @@ def page_two():
     fl_terrace = 1 if option == 'Yes' else 0
 
     terrace_sqm = st.number_input('Terrace Aea (sqm):', min_value=0.0, step=2.0)
-    option_garden = st.radio('Does it have a garden ?:',  [0, 1])
+    option_garden = st.radio('Does it have a garden ?:',  ['Yes', 'No'])
     fl_garden = 1 if option_garden == 'Yes' else 0
     garden_sqm = st.number_input('Garden Area (sqm):', min_value=0.0, step=10.0)
     
@@ -300,7 +300,7 @@ def page_two():
         
 # Call to render Folium map in Streamlit
 def page_three():
-    property_type=st.selectbox("Pick property type",['House','appartement'])
+    property_type=st.selectbox("Pick property type",['House','Apartment'])
     subproperty_type = st.selectbox('Select type of subproperty:',[
         "HOUSE",
         "APARTMENT",
@@ -328,7 +328,7 @@ def page_three():
     ])
 
     state_building = st.selectbox('State of building:', [
-        "MISSING",
+        "I Don't Know",
         "GOOD",
         "AS_NEW",
         "TO_RENOVATE",
@@ -336,9 +336,10 @@ def page_three():
         "JUST_RENOVATED",
         "TO_RESTORE"
     ])
+    state_building = "MISSING" if state_building == "I Don't Know" else state_building
 
-    epc = st.selectbox('EPC:', [
-        "MISSING",
+    epc = st.selectbox('EPC Value:', [
+        "I Don't Know",
         "B",
         "C",
         "D",
@@ -349,20 +350,24 @@ def page_three():
         "A+",
         "A++"
     ])
+    epc = "MISSING" if epc == "I Don't Know" else epc
     heating_type = st.selectbox('Type of heating:', [
+        "I Don't Know",
         "GAS",
-        "MISSING",
         "FUELOIL",
         "ELECTRIC",
         "PELLET",
         "WOOD",
         "SOLAR",
-        "CARBON"
+        "CARBON",
+        
     ])
-    equipped_kitchen=st.selectbox("Pick kitchen type",['USA_UNINSTALLED','USA_SEMI_EQUIPPED',
+    equipped_kitchen=st.selectbox("Pick kitchen type",["I Don't Know",'USA_UNINSTALLED','USA_SEMI_EQUIPPED',
                                                 'USA_INSTALLED', 'NOT_INSTALLED', 'USA_HYPER_EQUIPPED',
-                                                'SEMI_EQUIPPED', 'HYPER_EQUIPPED', 'INSTALLED', 'MISSING'])
-    fl_swimming_pool = st.selectbox('Swimming pool ?:',  [0, 1])
+                                                'SEMI_EQUIPPED', 'HYPER_EQUIPPED', 'INSTALLED'])
+
+    option_swimming_pool = st.selectbox('Does it have a swimming pool ?:',  ['Yes', 'No'])
+    fl_swimming_pool = 1 if option_swimming_pool == "Yes" else 0
 
     if st.button('Previous'):
         st.session_state.page = 'page_two'
