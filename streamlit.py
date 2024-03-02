@@ -300,7 +300,7 @@ def page_two():
         
 # Call to render Folium map in Streamlit
 def page_three():
-    property_type=st.selectbox("Pick property type",['House','Apartment'])
+    property_type=st.selectbox("Select type of subproperty",['House','Apartment'])
     subproperty_type = st.selectbox('Select type of subproperty:',[
         "HOUSE",
         "APARTMENT",
@@ -429,7 +429,7 @@ def page_three():
 
                     # Display the metric with the delta
                     st.metric(
-                                label=None,
+                                label="",
                                 value=f"€{price_per_sqm:,.2f}",
                                 delta = f"{round(delta, 2):,}: Δ€ from average",
                                 delta_color="normal"
