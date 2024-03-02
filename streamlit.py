@@ -429,7 +429,7 @@ def page_three():
 
                     # Display the metric with the delta
                     st.metric(
-                                #label=st.session_state.locality,
+                                label=st.session_state.locality,
                                 value=f"€{price_per_sqm:,.2f}",
                                 delta = f"{round(delta, 2):,}: Δ€ from average",
                                 delta_color="normal"
