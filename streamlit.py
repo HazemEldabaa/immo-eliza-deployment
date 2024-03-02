@@ -245,7 +245,7 @@ def page_one():
                 st.write(f"Last Clicked Latitude: {latitude}")
                 st.write(f"Last Clicked Longitude: {longitude}")
         else:
-            st.warning("Please select the marker and click on the map to retrieve coordinates")
+            st.warning("Please select the marker and click on the map to retrieve coordinates", icon="⚠️")
 
     if st.button('Next'):
         st.session_state.province = province
