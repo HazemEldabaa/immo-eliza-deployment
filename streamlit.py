@@ -183,9 +183,7 @@ html_content = """
     <div class = "title_div">
         <h1 class="title">Welcome to</h1>
     </div>
-    <h1 class = "immo_name" >Immo-ElizAI</h1>
-    <div class="by-vista">by: VISTA</div>
-
+    <h1 class = "immo_name" >Immo-ElizAI by VISTA</h1>
     <img class ="our_img" src="https://i.ibb.co/120j8dK/pngegg.png" alt="pngegg" border="0" width="75" height="50">
 </div>
 """
