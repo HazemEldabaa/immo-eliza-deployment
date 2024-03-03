@@ -392,8 +392,8 @@ def page_three():
 
     epc = st.selectbox('EPC Value:', [
         "I Don't Know",
-        "A+",
         "A++",
+        "A+",
         "B",
         "C",
         "D",
