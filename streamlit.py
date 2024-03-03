@@ -392,15 +392,15 @@ def page_three():
 
     epc = st.selectbox('EPC Value:', [
         "I Don't Know",
+        "A+",
+        "A++",
         "B",
         "C",
         "D",
         "A",
         "F",
         "E",
-        "G",
-        "A+",
-        "A++"
+        "G"
     ])
     epc = "MISSING" if epc == "I Don't Know" else epc
     heating_type = st.selectbox('Type of heating:', [
