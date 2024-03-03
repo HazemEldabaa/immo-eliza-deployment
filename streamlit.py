@@ -324,7 +324,32 @@ def page_two():
         st.session_state.page = 'page_three'
         st.experimental_rerun()
  
-        
+    footer="""<style>
+    a:link , a:visited{
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
+    }
+
+    a:hover,  a:active {
+    color: red;
+    background-color: transparent;
+    text-decoration: underline;
+    }
+
+    .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    color: black;
+    text-align: center;
+    }
+    </style>
+    Developed with ❤ by VISTA
+    """
+    st.markdown(footer,unsafe_allow_html=True)
 # Call to render Folium map in Streamlit
 def page_three():
     property_type=st.selectbox("Select type of subproperty",['House','Apartment'])
@@ -510,8 +535,32 @@ def page_three():
                     st.write(f"Locality: {st.session_state.locality}, Total area is zero, cannot calculate price per sqm.")
         except Exception as e:
             st.error(f'An error occurred: {str(e)}')
+    footer="""<style>
+    a:link , a:visited{
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
+    }
 
+    a:hover,  a:active {
+    color: red;
+    background-color: transparent;
+    text-decoration: underline;
+    }
 
+    .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    color: black;
+    text-align: center;
+    }
+    </style>
+    Developed with ❤ by VISTA
+    """
+    st.markdown(footer,unsafe_allow_html=True)
 
 # Render current page based on session state
 if st.session_state.page == 'page_one':
