@@ -278,7 +278,7 @@ def page_one():
     text-align: center;
     }
     </style>
-    Developed with ❤ by VISTA
+    Developed with ❤ by HazemEldabaa
     """
     st.markdown(footer,unsafe_allow_html=True)
 
@@ -347,7 +347,7 @@ def page_two():
     text-align: center;
     }
     </style>
-    Developed with ❤ by VISTA
+    Developed with ❤ by HazemEldabaa
     """
     st.markdown(footer,unsafe_allow_html=True)
 # Call to render Folium map in Streamlit
@@ -558,7 +558,7 @@ def page_three():
     text-align: center;
     }
     </style>
-    Developed with ❤ by VISTA
+    Developed with ❤ by HazemEldabaa
     """
     st.markdown(footer,unsafe_allow_html=True)
 
