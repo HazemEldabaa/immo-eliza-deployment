@@ -52,7 +52,7 @@ Create a fork of the repo, then use Render to deploy the API, and Streamlit to d
 
 
 ## 📷Screenshots
-### Interface:
+### Main Interface:
 ![Streamlit Interface](https://i.ibb.co/48TpjVY/immo-eliza-screenshot1.png)
 
 ### Prediction:
